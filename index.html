@@ -7,14 +7,16 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  
 </head>
   <body>
     <div class="container-fluid">
 		<h1>Temperature conversion</h1>
 		<img src="images/temperature.gif" class="img-fluid" alt="runner logo" width="150" height="150"><br>
+		<hr/>
 		<form role="form" method="GET">
 		  <div class="form-group">
-			<label for="tem">Current temperature:</label>
+			<label for="tem">Current temperature:(Celsius)</label>
 			<input type="text" class="form-control" name="temp" id="temp" value="20">
 		  </div><br>
 		  <div class="form-group">
@@ -37,6 +39,15 @@
 			   var t = $('#temp').val();//celsius
 			   var u = $('#unit').val();
 			   
+			     var chk =validate(t);
+               if(chk != null)return chk;
+
+               var t1;
+               var u1;
+               var cal = conversion(u,t);
+            });
+        });
+			function validate(t){
 			   if(isNaN(t)){
 					msg = "Please verify whether the temperature value is correct!!!";
 					alert(msg);
@@ -47,24 +58,24 @@
 					alert(msg);
 					return;
 			   }
-			   
-			   var t1;
-			   var u1;
-			   
-			   if(u == "F"){
-					t1 = t * (9/5) + 32;
-					u1 = "Fahrenheit";
-			   }else if(u == "K"){
-					t1 =  t + 273.15;
-					u1 = "Réaumur";
-			   }else if(u == "R"){
-					t1 = t * (4/5);
-					u1 = "Kelvin";
-			   }
-			   
-			   alert("Temperature is "+t1+" in "+u1);
-			});
-		});
+			}   			   		 
+			
+			function conversion(u,t) { 
+            if(u == "F"){
+                    t1 = t * (9/5) + 32;
+                    u1 = "Fahrenheit";
+               }else if(u == "K"){
+                    t1 =  t + 273.15;
+                    u1 = "Réaumur";
+               }else if(u == "R"){
+                    t1 = t * (4/5);
+                    u1 = "Kelvin";
+               }
+
+				var ans = document.getElementById("result").innerHTML = "Temperature is " +t1+" in "+u1;
+               return
+            }
+			
 	</script>
 </body>
 </html>
